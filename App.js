@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 require("./models/Artigo");
 const Artigo = mongoose.model('artigo');
@@ -8,6 +9,16 @@ const app = express();
 
 //usar o formata json
 app.use(express.json());
+
+//iniciar o cors para anlisar quais aplicações poderao acessar
+app.use((req, res, next) => {
+  console.log("Acessou o Middleware!");
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", 'GET,PUT,POST,DELETE');
+  app.use(cors());
+  next()
+});
+
 
 //conexão com o banco de dados
 mongoose.connect('mongodb://localhost/celke', {
@@ -58,7 +69,7 @@ app.get("/cpf/:cpf", (req, res)=>{
   
 })
 
-//solicitar todos os dados com o mesmo cpf ou nome
+//solicitar todos os dados com o mesmo nome
 app.get("/nome/:nome", (req, res)=>{
   console.log(req.params.nome);
 
@@ -70,7 +81,7 @@ app.get("/nome/:nome", (req, res)=>{
   
 })
 
-//solicitar todos os dados com o mesmo cpf ou nome
+//solicitar dados true ou false
 app.get("/valor/:valor", (req, res)=>{
   console.log(req.params.valor);
 
