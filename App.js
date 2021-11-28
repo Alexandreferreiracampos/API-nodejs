@@ -70,6 +70,18 @@ app.get("/nome/:nome", (req, res)=>{
   
 })
 
+//solicitar todos os dados com o mesmo cpf ou nome
+app.get("/valor/:valor", (req, res)=>{
+  console.log(req.params.valor);
+
+  Artigo.find({valor:req.params.valor}).then((artigo)=>{
+    return res.json(artigo);
+  }).catch((erro)=>{
+    return res.status(400).json({error: true, message:"Nenhuem artigo encontardo"})
+  })
+  
+})
+
 
 //salvar dados no banco de dados
 app.post("/artigo", (req, res) =>{
@@ -99,6 +111,23 @@ app.put("/cpf/:cpf", (req, res) =>{
     return res.json({
       error: false,
       message: "Artigo iditado com sucesso!"
+    })
+
+  });
+
+})
+
+//Excluir informação dentro do banco de dados
+app.delete("/cpf/:cpf", (req, res) =>{
+  const artigo = Artigo.deleteOne({cpf:req.params.cpf}, req.body, (err) =>{
+    if(err) return res.status(400).json({
+      error: true,
+      message: "Artigo não foi possivel deletar!"
+    });
+
+    return res.json({
+      error: false,
+      message: "Artigo deletado com sucesso!"
     })
 
   });
