@@ -88,6 +88,23 @@ app.post("/artigo", (req, res) =>{
   console.log(req.body)
 });
 
+//Alterando um valor no banco de dados
+app.put("/cpf/:cpf", (req, res) =>{
+  const artigo = Artigo.updateOne({cpf:req.params.cpf}, req.body, (err) =>{
+    if(err) return res.status(400).json({
+      error: true,
+      message: "Artigo não foi possivel editar!"
+    });
+
+    return res.json({
+      error: false,
+      message: "Artigo iditado com sucesso!"
+    })
+
+  });
+
+})
+
 
 //criar servidor na porta 8080
 app.listen(8080, () =>{
