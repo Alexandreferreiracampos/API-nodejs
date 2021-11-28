@@ -1,7 +1,7 @@
 Criar o aquivo packge
 npm init
 
-//gerenciar as requisições, toas e url.
+//gerenciar as requisições, rotas e url.
 npm install express
 
 //instalar o modulo para reiniciar o servidor sempre que houver uma modificação do codigo fonte.
