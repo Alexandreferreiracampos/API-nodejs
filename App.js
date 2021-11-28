@@ -1,6 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
 
+require("./models/Artigos");
+const Artigo = mongoose.model('artigo');
+
 const app = express();
 
 mongoose.connect('mongodb://localhost/celke', {
@@ -19,6 +22,10 @@ app.get("/1", (req, res) =>{
 app.get("/", (req, res) =>{
   return res.json({titulo: "Como criar uma API"});
 });
+
+app.post("/artigo", (req, res) =>{
+  return res.json({titulo: "Como criar uma API"});
+})
 
 
 app.listen(8080, ()=>{
