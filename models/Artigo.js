@@ -1,18 +1,17 @@
 const mongoose = require('mongoose');
 
 const Artigo = new mongoose.Schema({
-    titulo:{
+    titulo: {
         type: String,
         required: true
     },
-    conteudo:{
+    conteudo: {
         type: String,
         required: true
     }
-
 },
 {
-    timestamp: true,
+    timestamps: true,
 });
 
 mongoose.model('artigo', Artigo);

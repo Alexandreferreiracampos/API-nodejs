@@ -1,18 +1,20 @@
 const express = require('express');
 const mongoose = require('mongoose');
 
-require("./models/Artigos");
+require("./models/Artigo");
 const Artigo = mongoose.model('artigo');
 
 const app = express();
 
+app.use(express.json());
+
 mongoose.connect('mongodb://localhost/celke', {
   useNewUrlParser: true,
   useUnifiedTopology: true
-}).then(()=> {
-  console.log('Conexão com bando de dados com o MongoDB realizado com sucesso!');
-}).catch(()=>{
-  console.log("Erro: Conexão com o MongoDB não foi realizado com sucesso!");
+}).then(() => {
+    console.log("Conexão com MongoDB realizada com sucesso!");
+}).catch((erro) => {
+    console.log("Erro: Conexão com MongoDB não foi realizada com sucesso!");
 });
 
 app.get("/1", (req, res) =>{
@@ -24,11 +26,12 @@ app.get("/", (req, res) =>{
 });
 
 app.post("/artigo", (req, res) =>{
-  return res.json({titulo: "Como criar uma API"});
-})
+  console.log(req.body);
+  return res.json(req.body);
+});
 
 
-app.listen(8080, ()=>{
-    console.log("servidor iniciado na porta 8080: http://localhost:8080/");
-})
+app.listen(8080, () =>{
+  console.log("Servidor iniciado na porta 8080: http://localhost:8080/");
+});
 
